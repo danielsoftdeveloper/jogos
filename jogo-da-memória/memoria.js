@@ -39,14 +39,14 @@ const iniciaJogo = () => {
     cartas[p] = cartas[i];
     cartas[i] = aux;
   }
-  /*  console.log("cartasEmbaralhadas", cartas); */
+  console.log("vetor Cartas Embaralhadas", cartas);
 
   // associar evento as imagens
   let elemeImagens = document.querySelectorAll("#memoria img");
   elemeImagens.forEach((img, i) => {
     img.onclick = trataCliqueImagem;
     img.style.opacity = 1;
-    /*  img.src = fundo; */
+    img.src = fundo;
   });
 
   // Reinicia o estado do iniciaJogo;
@@ -57,8 +57,8 @@ const iniciaJogo = () => {
   pontos = 0;
 
   // desabilita o botão iniciar quando começa o jogo.
-  
-  document.querySelector('#btInicio').disabled = true;
+
+  document.querySelector("#btInicio").disabled = true;
 };
 
 // ====================================
@@ -67,7 +67,7 @@ const iniciaJogo = () => {
 
 const trataCliqueImagem = (e) => {
   if (cliquesTravados) return;
-  console.log("cliquesTrado e", cliquesTravados);
+  /*  console.log("cliquesTrado e", cliquesTravados); */
   // + muda string na number.
   const p = +e.target.getAttribute("data-valor");
   const valor = cartas[p]; //16 cartas
@@ -78,7 +78,8 @@ const trataCliqueImagem = (e) => {
     temCartaVirada = true;
     posicaoCartaVirada = p;
     valorCartaVirada = valor;
-  } else { // não tem carta virada.
+  } else {
+    // tem carta virada.
     if (valor == valorCartaVirada) {
       pontos++;
     } else {
@@ -102,9 +103,9 @@ const trataCliqueImagem = (e) => {
   /*  if (temCartaVirada) {
     cliquesTravados = true;
   } */
-console.log("Total", pontos);
+  console.log("Total", pontos);
   if (pontos > 7) {
-    document.querySelector('#btInicio').disabled = false;
-    alert("Parabéns, voce conseguiu!")
+    document.querySelector("#btInicio").disabled = false;
+    alert("Parabéns, voce conseguiu!");
   }
 };
