@@ -8,6 +8,7 @@ let temCartaVirada = false;
 let posicaoCartaVirada = -1;
 let valorCartaVirada = 0;
 let pontos = 0;
+const timerDoJogo = new Timer("#timer");
 
 // Estado do jogo
 let cartas = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
@@ -21,7 +22,7 @@ onload = () => {
     img.style.opacity = 0.4;
   });
 
-  /* Cria o evento do botão de Inicio */
+  /* Cria o evento inicia o jogo ao clicar no botão Iniciar */
   document.querySelector("#btInicio").onclick = iniciaJogo;
 };
 
@@ -30,8 +31,6 @@ onload = () => {
 // ====================================
 
 const iniciaJogo = () => {
-  /* console.log("cartasIniciais", cartas); */
-
   // Primeiro embaralhar as cartas
   for (let i = 0; i < cartas.length; i++) {
     let p = Math.trunc(Math.random() * cartas.length);
@@ -57,17 +56,16 @@ const iniciaJogo = () => {
   pontos = 0;
 
   // desabilita o botão iniciar quando começa o jogo.
-
   document.querySelector("#btInicio").disabled = true;
+  document.querySelector("#timer").style.backgroundColor = "orange";
+  timerDoJogo.start(); // dispara o timer.
 };
 
 // ====================================
 // Processa a imagem
 // ====================================
-
 const trataCliqueImagem = (e) => {
   if (cliquesTravados) return;
-  /*  console.log("cliquesTrado e", cliquesTravados); */
   // + muda string na number.
   const p = +e.target.getAttribute("data-valor");
   const valor = cartas[p]; //16 cartas
@@ -75,13 +73,14 @@ const trataCliqueImagem = (e) => {
   e.target.onclick = null;
 
   if (!temCartaVirada) {
+    // não tem carta viradas
     temCartaVirada = true;
     posicaoCartaVirada = p;
     valorCartaVirada = valor;
   } else {
     // tem carta virada.
     if (valor == valorCartaVirada) {
-      pontos++;
+      pontos++; // acertou as duas cartas
     } else {
       const p0 = posicaoCartaVirada;
       cliquesTravados = true;
@@ -95,6 +94,7 @@ const trataCliqueImagem = (e) => {
       }, 1500);
     }
 
+    //continua jogo
     temCartaVirada = false;
     posicaoCartaVirada = -1;
     valorCartaVirada = 0;
@@ -107,5 +107,35 @@ const trataCliqueImagem = (e) => {
   if (pontos > 7) {
     document.querySelector("#btInicio").disabled = false;
     alert("Parabéns, voce conseguiu!");
+    document.querySelector("#timer").style.backgroundColor = "lightgreen";
+    timerDoJogo.stop(); // para o tempo
   }
 };
+
+// ====================================
+// Timer
+// ====================================
+function Timer(e) {
+  this.element = e;
+  this.time = 0;
+  this.control = null;
+  this.start = () => {
+    this.time = 0;
+    this.control = setInterval(() => {
+      this.time++;
+      const minutes = Math.trunc(this.time / 60);
+      const seconds = this.time % 60;
+      //apresenta time.
+      document.querySelector(this.element).innerHTML =
+        (minutes < 10 ? "0" : "") +
+        minutes +
+        ":" +
+        (seconds < 110 ? "0" : "") +
+        seconds;
+    }, 1000);
+  };
+  this.stop = () => {
+    clearInterval(this.control);
+    this.control = null;
+  };
+}
