@@ -1,14 +1,15 @@
 .container {
   text-align: center;
 }
+
 #memoria {
   display: block;
   margin: 0 auto;
 }
 
-#memoria #timer{
+#memoria #timer {
   font-family: Arial, Helvetica, sans-serif;
-  font-size:  36pt;
+  font-size: 20pt;
   font-weight: bold;
   text-align: center;
   background-color: lightgray;
@@ -16,8 +17,9 @@
 }
 
 #memoria {
-  max-width: 30rem;
+  max-width: 90%;
 }
+
 #memoria img {
   margin-bottom: 20px;
   border: thin solid black;
@@ -28,4 +30,47 @@
 
 #memoria #rodape {
   text-align: center;
+}
+
+/* Adicione responsividade para celular */
+@media screen and (max-width: 600px) {
+  .container {
+    margin-top: 10px;
+  }
+  #memoria img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Adicione responsividade para tablet */
+/* For tablets: */
+@media only screen and (min-width: 700px) {
+  .container {
+    margin-top: 20px;
+  }
+  #memoria img {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .container{
+    width: 80%;
+    margin-top: 5px;
+
+  }
+
+  #memoria img {
+    width: 130px;
+    height: 130px;
+  }
+  
+  #timer{
+    font-size: 20px;
+  }
+
+
 }
