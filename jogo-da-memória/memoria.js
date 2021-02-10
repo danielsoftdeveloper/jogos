@@ -38,7 +38,7 @@ const iniciaJogo = () => {
     cartas[p] = cartas[i];
     cartas[i] = aux;
   }
-  /* console.log("vetor Cartas Embaralhadas", cartas); */
+  console.log("vetor Cartas Embaralhadas", cartas);
 
   // associar evento as imagens
   let elemeImagens = document.querySelectorAll("#memoria img");
@@ -100,13 +100,10 @@ const trataCliqueImagem = (e) => {
     valorCartaVirada = 0;
   }
 
-  /*  if (temCartaVirada) {
-    cliquesTravados = true;
-  } */
   /* console.log("Total", pontos); */
   if (pontos > 7) {
     document.querySelector("#btInicio").disabled = false;
-    alert("Parabéns, voce conseguiu!");
+    alert(`Parabéns, você conseguiu finalizar o jogo e fez ${pontos} Pontos!`);
     document.querySelector("#timer").style.backgroundColor = "lightgreen";
     timerDoJogo.stop(); // para o tempo
   }
