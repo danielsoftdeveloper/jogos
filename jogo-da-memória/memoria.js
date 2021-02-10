@@ -38,7 +38,7 @@ const iniciaJogo = () => {
     cartas[p] = cartas[i];
     cartas[i] = aux;
   }
-  console.log("vetor Cartas Embaralhadas", cartas);
+ /*  console.log("vetor Cartas Embaralhadas", cartas); */
 
   // associar evento as imagens
   let elemeImagens = document.querySelectorAll("#memoria img");
