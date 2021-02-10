@@ -1,5 +1,7 @@
 .container {
   text-align: center;
+  display: block;
+  margin: 0 auto;
 }
 
 #memoria {
@@ -9,7 +11,7 @@
 
 #memoria #timer {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20pt;
+  font-size: 16px; 
   font-weight: bold;
   text-align: center;
   background-color: lightgray;
@@ -33,9 +35,9 @@
 }
 
 /* Adicione responsividade para celular */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   .container {
-    margin-top: 10px;
+    margin-top: 20px;
   }
   #memoria img {
     width: 80px;
@@ -45,9 +47,9 @@
 
 /* Adicione responsividade para tablet */
 /* For tablets: */
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 701px) {
   .container {
-    margin-top: 20px;
+    margin-top: 30px;
   }
   #memoria img {
     width: 140px;
@@ -55,22 +57,20 @@
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
   /* For desktop: */
-  .container{
+  .container {
     width: 80%;
-    margin-top: 5px;
-
+     margin-top: 0px; 
   }
 
   #memoria img {
-    width: 130px;
-    height: 130px;
-  }
-  
-  #timer{
+    width: 110px;
+    height: 110px;
+    margin: 5px;
+  } 
+
+  #timer {
     font-size: 20px;
   }
-
-
 }
