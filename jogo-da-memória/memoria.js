@@ -38,7 +38,7 @@ const iniciaJogo = () => {
     cartas[p] = cartas[i];
     cartas[i] = aux;
   }
-  console.log("vetor Cartas Embaralhadas", cartas);
+  /* console.log("vetor Cartas Embaralhadas", cartas); */
 
   // associar evento as imagens
   let elemeImagens = document.querySelectorAll("#memoria img");
@@ -103,7 +103,7 @@ const trataCliqueImagem = (e) => {
   /*  if (temCartaVirada) {
     cliquesTravados = true;
   } */
-  console.log("Total", pontos);
+  /* console.log("Total", pontos); */
   if (pontos > 7) {
     document.querySelector("#btInicio").disabled = false;
     alert("Parabéns, voce conseguiu!");
@@ -130,7 +130,7 @@ function Timer(e) {
         (minutes < 10 ? "0" : "") +
         minutes +
         ":" +
-        (seconds < 110 ? "0" : "") +
+        (seconds < 10 ? "0" : "") +
         seconds;
     }, 1000);
   };
