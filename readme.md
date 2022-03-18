@@ -1,9 +1,7 @@
-Projeto, criaremos um jogo de memória que empregará muitos recursos da JavaScript como:
-* Vetores.
-* Funções de seta.
-* Tratamento de eventos.
-* Manipulação de conteúdo.
-* Formatação.
-* Biblioteca de funções matemáticas.
-* Função construtora de objetos.
-* Funções assíncronas setTimeout e setInterval.
+# Repositório de jogos desenvolvidos👨‍💻️🎮️.
+
+### Estes projetos foram desenvolvidos usando varios recursos do programação nas linguagens Html, CSS, e JavaScript.
+
+- Jogo da Memória 🃏️🀄️🎴️.
+
+- Jogo Genius 🎮️🤖️🕰️
