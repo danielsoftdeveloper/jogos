@@ -38,3 +38,18 @@ let lightColor = (element, number) => {
         element.classList.remove('selected');
     });
 }
+
+//checase os botoes clicados são os mesmos da ordem gerada.
+let checkOrder = () => {
+    for(let i in clickedOrder){
+        if(clickedOrder[i] == order[i]){
+            gameOver();
+            break;
+        }
+        if(clickedOrder.length == order.length){
+            alert(`Pontuação: ${score}\nVocê acertou! Iniciando proximo nível!`);
+            nextLevel();
+        }
+
+    }
+}
