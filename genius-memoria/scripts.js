@@ -39,7 +39,7 @@ let lightColor = (element, number) => {
     });
 }
 
-//checase os botoes clicados são os mesmos da ordem gerada.
+//checa se os botoes clicados são os mesmos da ordem gerada.
 let checkOrder = () => {
     for(let i in clickedOrder){
         if(clickedOrder[i] == order[i]){
@@ -52,4 +52,17 @@ let checkOrder = () => {
         }
 
     }
+}
+
+// função para o clique do usúario.
+let click = (color) => {
+    clickedOrder[clickedOrder.length] = color;
+    createColorElement(color).classList.add('selected');
+
+    setTimeout(() => {
+       createColorElement(color).classList.remove('selected'); 
+       
+       checkOrder();    
+    }, 250);
+    
 }
