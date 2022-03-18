@@ -16,24 +16,28 @@ const blue = document.querySelector('.blue');
 const yellow = document.querySelector('.yellow');
 
 //cria a ordem aleatória das cores
-let SorteiaOrder = () => {
+let shuffleOrder = () => {
     let colorOrder = Math.floor(Math.random() * 4);
     order[order.length] = colorOrder;
     clickedOrder = [];
-
+    
     for(let i in order) {
         let elementColor = createColorElement(order[i]);
+
+        console.log(elementColor);
+
         lightColor(elementColor, Number(i) + 1);
+
     }
 }
 
 //acende a próxima cor
 let lightColor = (element, number) => {
-    number = number * 500;
+    number = number * 1000;
     setTimeout(() => {
         element.classList.add('selected');
         
-    }, number - 250);
+    }, number - 100);
     setTimeout(() => {
         element.classList.remove('selected');
     });
@@ -41,8 +45,9 @@ let lightColor = (element, number) => {
 
 //checa se os botoes clicados são os mesmos da ordem gerada.
 let checkOrder = () => {
-    for(let i in clickedOrder){
-        if(clickedOrder[i] == order[i]){
+    for(let i in clickedOrder){        
+
+        if(clickedOrder[i] != order[i]){
             gameOver();
             break;
         }
@@ -84,28 +89,29 @@ let createColorElement = (color) => {
 // função para próximo nível do jogo
 let nextLevel = () => {
     score++;
-    SorteiaOrder();
+    shuffleOrder();
 }
 
 //função para game over
 let gameOver = () => {
     alert(`Pontuação:: ${score}!\nVocê perdeu o jogo!\n Clique em ok para iniciar um novo jogo`);
-    order = [];
-    clickedOrder = [];
+    //order = [];
+    //clickedOrder = [];
 
-    playGame();
+    //playGame(); // jogar novamente
 }
 
-//iniciar jogo
+// função do iniciar do jogo
 let playGame = () => {
     alert('Benvido ao Genius virtual! Iniciando jogo');
     score = 0;
     nextLevel();
 }
+// eventos de clicks par as cores
+green.onclick = () => click(0);
+red.onclick = () => click(1);
+yellow.onclick = () => click(2);
+blue.onclick = () => click(3);
 
-green.addEventListener('click',click(0));
-red.addEventListener('click',click(1));
-yellow.addEventListener('click',click(2));
-blue.addEventListener('click',click(3));
-
+// incio do jogo
 playGame();

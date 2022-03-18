@@ -4,8 +4,8 @@ body {
 }
 
 .main-game {
-    /* height: 100vh;
-    width: 100vh; */
+    height: 100vh;
+    width: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,6 +52,6 @@ body {
 }
 
 .selected {
-    opacity: 0.8;
+    opacity: 0.2;
 }
 
