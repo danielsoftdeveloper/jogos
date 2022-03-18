@@ -79,3 +79,33 @@ let createColorElement = (color) => {
         return blue;
     }
 }
+
+
+// função para próximo nível do jogo
+let nextLevel = () => {
+    score++;
+    SorteiaOrder();
+}
+
+//função para game over
+let gameOver = () => {
+    alert(`Pontuação:: ${score}!\nVocê perdeu o jogo!\n Clique em ok para iniciar um novo jogo`);
+    order = [];
+    clickedOrder = [];
+
+    playGame();
+}
+
+//iniciar jogo
+let playGame = () => {
+    alert('Benvido ao Genius virtual! Iniciando jogo');
+    score = 0;
+    nextLevel();
+}
+
+green.addEventListener('click',click(0));
+red.addEventListener('click',click(1));
+yellow.addEventListener('click',click(2));
+blue.addEventListener('click',click(3));
+
+playGame();
