@@ -1,7 +1,7 @@
-var order = [];
-var clickedOrder = [];
+let order = [];
+let clickedOrder = [];
 let score = 0;
-var go = 1;
+var continuar = new Boolean(false);
 
 var x = document.getElementById("myAudio");
 
@@ -19,7 +19,8 @@ const yellow = document.querySelector('.yellow');
 
 //cria a ordem aleatória das cores
 let shuffleOrder = () => {
-
+    order = [];
+          
     let elementColor;
 
     let colorOrder = Math.floor(Math.random() * 4);
@@ -27,12 +28,13 @@ let shuffleOrder = () => {
     order[order.length] = colorOrder;
         
     for(let  i in order) {
+        //console.log("i: " + i);
 
        elementColor = createColorElement(order[i]);
 
-       lightColor(elementColor, Number(i) + 1);
+       lightColor(elementColor, Number(i));
 
-     console.log(" vetor order inicial: " + order);
+      console.log("vetor order inicial: " + order);
     
     }
 
@@ -70,9 +72,8 @@ let lightColor = (element, number) => {
 
         setTimeout(() => {
             element.classList.remove('selected');
-
            
-       }, 250); // apos tempo remove luz. 
+       }, 400); // apos tempo remove luz. 
         
     }, number - 100);
     
@@ -84,11 +85,9 @@ let nextLevel = () => {
     shuffleOrder();
 }
 
-
 // função do iniciar do jogo
 let playGame = () => {
-    score = 0;
-    alert('Benvido ao Genius virtual! Iniciando jogo "\n" Clique na sequencia de cores após parar de piscar');
+    score = 0;   
     x.play();
     shuffleOrder();        
     
@@ -96,6 +95,8 @@ let playGame = () => {
 
 // função para o clique do usúario.
 let click = (color) => {
+
+    clickedOrder = [];
     //console.log(color);
     clickedOrder[clickedOrder.length] = color;
     createColorElement(color).classList.add('selected');
@@ -121,53 +122,76 @@ function playAudio() {
 //checa se os botoes clicados são os mesmos da ordem gerada.
 let checkOrder = () => {
 
-    for(let i in clickedOrder) {
+    let i = 0;
 
-        console.log("entrou no for Order: " + order[i]);
-        console.log("entrou noo for click: "+ clickedOrder[i]);
+    while( i < order.length){        
 
-        if(clickedOrder[i] != order[i]) {
-
-            console.log("entrou no for Order: " + order[i]);
-            console.log("entrou noo for click: "+ clickedOrder[i]);
-            gameOver();
-            go = 0;
-            return;
+        let pegaUmDaOrdem = order[i];
+        console.log("DaOrdem: "+ pegaUmDaOrdem);
             
-        }
-    }
+        let pegaUmDoClique = clickedOrder[i];
 
-   console.log(order);
+        console.log("DoClick: "+ pegaUmDoClique);
 
-   if(clickedOrder.length == order.length) {
-    //alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível!`);
-    console.log("acertou!")
-    go = 1;
-     
-    } 
+        //console.log(clickedOrder);
 
-    if(go == 1){
+        if(pegaUmDaOrdem == pegaUmDoClique) {
+
+            console.log("acertou!");
+            break;
+            continuar = true;                                     
+            
+        }  
+
+        if(pegaUmDaOrdem != pegaUmDoClique) {
+       
+            alert("Pontuação do Jogo: " + score);
+            document.getElementById("btn").innerText = "Errou jogar novamente";             
+            document.getElementById("btn").style.display = "block";
+            document.getElementById("btn").style.background = "red";
+            i = 100; 
+            continuar = false;
+            return;                             
+             
+        }  
+
+        i++;
+
+    }       
+    
+    if(continuar){
         setTimeout(() => {
-
-            if(go){
-            x.play();
-            
+           
+            x.play();            
             nextLevel();
-            }
+        
             
         }, 5000);     
        
-    }        
+    }    
+    
+    order = [];
 
 }
 
 
 //função para game over
 let gameOver = () => {
-    alert(`Pontuação:: ${score}!\nVocê perdeu o jogo!\n Clique em ok para iniciar um novo jogo`);
-   
+    alert(`Pontuação:: ${score}!\nVocê perdeu o jogo!`);   
     order = [];
     clickedOrder = [];
 }
 
-playGame();
+function functionPlayGame() {
+    
+    playGame();
+    escondeButton();
+
+} 
+
+function escondeButton(){
+
+    document.getElementById("btn").style.display = "none";
+       
+} 
+
