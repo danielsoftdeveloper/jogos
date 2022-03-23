@@ -2,6 +2,7 @@ let order = [];
 let clickedOrder = [];
 let score = 0;
 var continuar = new Boolean(false);
+let conta = 0;
 
 var x = document.getElementById("myAudio");
 
@@ -119,6 +120,8 @@ let checkOrder = () => {
         console.log(clickedOrder[i]);
 
         if (order[i] === pegaClique) {
+            conta++;
+            document.querySelector('.badge').innerText = conta;
             console.log("acertou!");
             continuar = true;
             functionScore();
@@ -160,11 +163,11 @@ let playGame = () => {
 
 //função para game over
 let gameOver = () => {
-    alert(`Você perdeu o jogo! \nScore: ${score}!\n`);
+    alert(`Você perdeu clicou na sequencia errada!`);
 }
 
 function playAudio() {
-    x.play(); 
+    x.play();
 }
 
 function escondeButton() {
