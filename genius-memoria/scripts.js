@@ -9,89 +9,21 @@ var x = document.getElementById("myAudio");
 //1 - vermelho
 //2 - amarelo
 //3 - azul
+
+//adiciona a class do CSS na constante
 const green = document.querySelector('.green');
 
-const red  = document.querySelector('.red');
+const red = document.querySelector('.red');
 
 const blue = document.querySelector('.blue');
 
 const yellow = document.querySelector('.yellow');
 
-//cria a ordem aleatória das cores
-let shuffleOrder = () => {
-    order = [];
-          
-    let elementColor;
-
-    let colorOrder = Math.floor(Math.random() * 4);
-
-    order[order.length] = colorOrder;
-        
-    for(let  i in order) {
-        //console.log("i: " + i);
-
-       elementColor = createColorElement(order[i]);
-
-       lightColor(elementColor, Number(i));
-
-      console.log("vetor order inicial: " + order);
-    
-    }
-
-}
-
-//criar a função que retorna a cor
-let createColorElement = (color) => {    
-
-    if(color == 0){
-
-        return green;
-
-    } else if(color == 1){
-
-        return red;
-
-    } else if (color == 2){
-
-        return yellow;
-
-    } else if(color == 3){
-
-        return blue;
-    }
-   
-}
-
-//acende a próxima cor
-let lightColor = (element, number) => {
-      
-    number = number * 1000;
-    
-    setTimeout(() => {
-        element.classList.add('selected');
-
-        setTimeout(() => {
-            element.classList.remove('selected');
-           
-       }, 400); // apos tempo remove luz. 
-        
-    }, number - 100);
-    
-}
-
-// função para próximo nível do jogo
-let nextLevel = () => {
-    score++;
-    shuffleOrder();
-}
-
-// função do iniciar do jogo
-let playGame = () => {
-    score = 0;   
-    x.play();
-    shuffleOrder();        
-    
-}
+// eventos de clicks par as cores
+green.onclick = () => click(0);
+red.onclick = () => click(1);
+yellow.onclick = () => click(2);
+blue.onclick = () => click(3);
 
 // função para o clique do usúario.
 let click = (color) => {
@@ -102,96 +34,151 @@ let click = (color) => {
     createColorElement(color).classList.add('selected');
 
     setTimeout(() => {
-       createColorElement(color).classList.remove('selected'); 
-       
-       checkOrder();    
+        createColorElement(color).classList.remove('selected');
+
+        checkOrder();
     }, 250);
-    
+
 }
 
-// eventos de clicks par as cores
-green.onclick = () => click(0);
-red.onclick = () => click(1);
-yellow.onclick = () => click(2);
-blue.onclick = () => click(3);
+//cria a ordem aleatória das cores
+let shuffleOrder = () => {
 
-function playAudio() { 
-    x.play(); 
-  } 
+    let elementColor;
+
+    let colorOrder = Math.floor(Math.random() * 4);
+
+    order[order.length] = colorOrder;
+
+    for (let i in order) {
+        console.log("i: " + i);
+
+        elementColor = createColorElement(order[i]);
+
+        lightColor(elementColor, Number(i));
+
+        console.log("vetor order inicial: " + order);
+    }
+
+}
+
+//criar a função que retorna a cor
+let createColorElement = (color) => {
+
+    if (color == 0) {
+
+        return green;
+
+    } else if (color == 1) {
+
+        return red;
+
+    } else if (color == 2) {
+
+        return yellow;
+
+    } else if (color == 3) {
+
+        return blue;
+    }
+
+}
+
+//acende a próxima cor
+let lightColor = (element, number) => {
+
+    number = number * 1000;
+
+    setTimeout(() => {
+        element.classList.add('selected');
+
+        setTimeout(() => {
+            element.classList.remove('selected');
+
+        }, 400); // apos tempo remove luz. 
+
+    }, number - 100);
+
+}
 
 //checa se os botoes clicados são os mesmos da ordem gerada.
 let checkOrder = () => {
 
+    console.log("resultado score: " + score);
+
     let i = 0;
 
-    while( i < order.length){        
+    do {
 
-        let pegaUmDaOrdem = order[i];
-        console.log("DaOrdem: "+ pegaUmDaOrdem);
-            
-        let pegaUmDoClique = clickedOrder[i];
+        console.log("Continuar" + continuar);
 
-        console.log("DoClick: "+ pegaUmDoClique);
+        let pegaClique = clickedOrder[i];
 
-        //console.log(clickedOrder);
+        console.log("DoClick: " + pegaClique);
 
-        if(pegaUmDaOrdem == pegaUmDoClique) {
+        console.log(clickedOrder[i]);
 
+        if (order[i] === pegaClique) {
             console.log("acertou!");
+            continuar = true;
+            functionScore();
             break;
-            continuar = true;                                     
-            
-        }  
+        }
 
-        if(pegaUmDaOrdem != pegaUmDoClique) {
-       
-            alert("Pontuação do Jogo: " + score);
-            document.getElementById("btn").innerText = "Errou jogar novamente";             
-            document.getElementById("btn").style.display = "block";
-            document.getElementById("btn").style.background = "red";
-            i = 100; 
+        if (order[i] != pegaClique) {
+            gameOver();
             continuar = false;
-            return;                             
-             
-        }  
+            i = 100;
+            i++;
+            break;
+        }
 
-        i++;
+    } while (i < order.length);
 
-    }       
-    
-    if(continuar){
-        setTimeout(() => {
-           
-            x.play();            
-            nextLevel();
-        
-            
-        }, 5000);     
-       
-    }    
-    
-    order = [];
+    if (continuar) {
+        functionNextLevel();
+    }
 
 }
 
+// função para próximo nível do jogo
+function functionPlayGame() {
+
+    playGame();// 
+    escondeButton();
+    //continuar = true;
+}
+let functionScore = () => {
+    score++;
+}
+
+// função do iniciar do jogo
+let playGame = () => {
+    x.play();
+    shuffleOrder();
+}
 
 //função para game over
 let gameOver = () => {
-    alert(`Pontuação:: ${score}!\nVocê perdeu o jogo!`);   
-    order = [];
-    clickedOrder = [];
+    alert(`Você perdeu o jogo! \nScore: ${score}!\n`);
 }
 
-function functionPlayGame() {
-    
-    playGame();
-    escondeButton();
+function playAudio() {
+    x.play(); 
+}
 
-} 
-
-function escondeButton(){
+function escondeButton() {
 
     document.getElementById("btn").style.display = "none";
-       
-} 
+}
+
+function functionNextLevel() {
+
+    setTimeout(() => {
+        playGame();
+        playAudio();
+
+    }, 5000);
+
+}
 
