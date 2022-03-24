@@ -1,10 +1,11 @@
 let order = [];
 let clickedOrder = [];
+let newArray = [];
+let TAM = 1;
 let score = 0;
 var continuar = new Boolean(false);
 let conta = 0;
 var x = document.getElementById("myAudio");
-
 
 //0 - verde
 //1 - vermelho
@@ -45,24 +46,45 @@ let click = (color) => {
 //cria a ordem aleatória das cores
 let shuffleOrder = () => {
 
-    let elementColor;
+    // let elementColor;
 
-    let colorOrder = Math.floor(Math.random() * 4);
+    // let colorOrder = Math.floor(Math.random() * 4);
 
-    order[order.length] = colorOrder;
+    // order[order.length] = colorOrder;
 
-    for (let i in order) {
-        console.log("i: " + i);
+    // for (let i in order) {
+    //     console.log("i: " + i);
 
-        elementColor = createColorElement(order[i]);
+    //     elementColor = createColorElement(order[i]);
 
-        lightColor(elementColor, Number(i));
+    //     lightColor(elementColor, Number(i));
 
-        console.log("vetor order inicial: " + order);
-    }
+    //     console.log("vetor order inicial: " + order);
+    // }
+    repeatDraw();
 
 }
 
+// criar repetição da sequência
+let repeatDraw = () => {
+
+    let colorOrder = Math.floor(Math.random() * 4);
+    order[order.length] = colorOrder;
+    newArray = order;
+    rodaCores();
+}
+
+let rodaCores = () => {
+
+    for (let y in order) {
+
+        elementColor = createColorElement(newArray[y]);
+        lightColor(elementColor, Number(y));
+        console.log("vetor order inicial: " + newArray);
+
+    }
+
+}
 //criar a função que retorna a cor
 let createColorElement = (color) => {
 
@@ -105,26 +127,20 @@ let lightColor = (element, number) => {
 //checa se os botoes clicados são os mesmos da ordem gerada.
 let checkOrder = () => {
 
-    console.log("resultado score: " + score);
-
     let i = 0;
 
     do {
-
-        console.log("Continuar" + continuar);
-
         let pegaClique = clickedOrder[i];
 
-        console.log("DoClick: " + pegaClique);
-
-        console.log(clickedOrder[i]);
+        //console.log("Do Click: " + pegaClique);
+        //console.log("Da Ordem: " + clickedOrder[i]);
 
         if (order[i] === pegaClique) {
             conta++;
             document.querySelector('.badge').innerText = conta;
             console.log("acertou!");
-            continuar = true;
             functionScore();
+            continuar = true;
             break;
         }
 
@@ -133,17 +149,22 @@ let checkOrder = () => {
             continuar = false;
             i = 100;
             i++;
-            break;
+            return;
         }
+
 
     } while (i < order.length);
 
-    if (continuar) {
-        functionNextLevel();
-    } else if (!continuar) {
+    if (!continuar) {
         myStopFunction();
     }
-    
+
+
+    if (continuar) {
+        TAM++;
+        functionNextLevel();
+    }
+
 }
 
 // função para próximo nível do jogo
@@ -177,7 +198,7 @@ function escondeButton() {
     document.getElementById("btn").style.display = "none";
 }
 
-const myTimeout = functionNextLevel = () =>  {
+const myTimeout = functionNextLevel = () => {
 
     setTimeout(() => {
         playGame();
