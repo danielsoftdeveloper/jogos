@@ -4,8 +4,10 @@ let newArray = [];
 let TAM = 1;
 let score = 0;
 var continuar = new Boolean(false);
+var finalizar = new Boolean(false);
 let conta = 0;
 var x = document.getElementById("myAudio");
+let clicado = true;
 
 //0 - verde
 //1 - vermelho
@@ -71,8 +73,10 @@ let repeatDraw = () => {
     let colorOrder = Math.floor(Math.random() * 4);
     order[order.length] = colorOrder;
     newArray = order;
+
     rodaCores();
 }
+
 
 let rodaCores = () => {
 
@@ -126,16 +130,23 @@ let lightColor = (element, number) => {
 
 //checa se os botoes clicados são os mesmos da ordem gerada.
 let checkOrder = () => {
-
     let i = 0;
-
+    
     do {
         let pegaClique = clickedOrder[i];
+        let ordem = order[i];
 
-        //console.log("Do Click: " + pegaClique);
-        //console.log("Da Ordem: " + clickedOrder[i]);
+        console.log("Do Click: " + pegaClique);
+        console.log("Da Ordem: " + clickedOrder[i]);
 
-        if (order[i] === pegaClique) {
+        if (order[i] != pegaClique) {           
+            continuar = false;
+            i = 100;
+            i++;
+            return;
+        }
+
+        if (ordem === pegaClique) {
             conta++;
             document.querySelector('.badge').innerText = conta;
             console.log("acertou!");
@@ -144,19 +155,22 @@ let checkOrder = () => {
             break;
         }
 
-        if (order[i] != pegaClique) {
-            gameOver();
-            continuar = false;
-            i = 100;
-            i++;
-            return;
-        }
+       
 
 
     } while (i < order.length);
 
+    console.log("finalizou");
+    finalizar = true;
+
+    clickedOrder = [];
+
+
+    console.log("continuar" + continuar);
     if (!continuar) {
+        alert(`Perdeu clicou na sequencia errada!`);
         myStopFunction();
+        
     }
 
 
@@ -164,6 +178,7 @@ let checkOrder = () => {
         TAM++;
         functionNextLevel();
     }
+
 
 }
 
@@ -200,11 +215,19 @@ function escondeButton() {
 
 const myTimeout = functionNextLevel = () => {
 
-    setTimeout(() => {
-        playGame();
-        playAudio();
+    if (finalizar) {
 
-    }, 5000);
+        setTimeout(() => {
+            if (click) {
+                playGame();
+                playAudio();
+            }
+        }, 10000);
+
+    } else {
+        console.log("Ainda não terminou!")
+
+    }
 
 }
 
