@@ -3,8 +3,8 @@ let clickedOrder = [];
 let score = 0;
 var continuar = new Boolean(false);
 let conta = 0;
-
 var x = document.getElementById("myAudio");
+
 
 //0 - verde
 //1 - vermelho
@@ -140,8 +140,10 @@ let checkOrder = () => {
 
     if (continuar) {
         functionNextLevel();
+    } else if (!continuar) {
+        myStopFunction();
     }
-
+    
 }
 
 // função para próximo nível do jogo
@@ -175,7 +177,7 @@ function escondeButton() {
     document.getElementById("btn").style.display = "none";
 }
 
-function functionNextLevel() {
+const myTimeout = functionNextLevel = () =>  {
 
     setTimeout(() => {
         playGame();
@@ -183,5 +185,10 @@ function functionNextLevel() {
 
     }, 5000);
 
+}
+
+//para sorteio
+function myStopFunction() {
+    clearTimeout(myTimeout);
 }
 
