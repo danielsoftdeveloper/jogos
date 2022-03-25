@@ -47,22 +47,7 @@ let click = (color) => {
 
 //cria a ordem aleatória das cores
 let shuffleOrder = () => {
-
-    // let elementColor;
-
-    // let colorOrder = Math.floor(Math.random() * 4);
-
-    // order[order.length] = colorOrder;
-
-    // for (let i in order) {
-    //     console.log("i: " + i);
-
-    //     elementColor = createColorElement(order[i]);
-
-    //     lightColor(elementColor, Number(i));
-
-    //     console.log("vetor order inicial: " + order);
-    // }
+  
     repeatDraw();
 
 }
@@ -77,7 +62,6 @@ let repeatDraw = () => {
     rodaCores();
 }
 
-
 let rodaCores = () => {
 
     for (let y in order) {
@@ -89,6 +73,7 @@ let rodaCores = () => {
     }
 
 }
+
 //criar a função que retorna a cor
 let createColorElement = (color) => {
 

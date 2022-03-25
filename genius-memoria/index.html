@@ -11,24 +11,48 @@
 </head>
 
 <body>
-    <div class="main-game">
-        <div class="badge warning">Score: 0</div> 
-        <div class="corpoGenius">
-            <div class="genius">
-                <div class="blue"></div>
-                <div class="yellow"></div>
-                <div class="red"></div>
-                <div class="green"></div>               
+    <div class="flex-container ">
+        <div class="main-game">
+            <div class="texto-title">
+                <div>Jogo Genius Virtual</div>
             </div>
-        </div>               
-        <div>
-            <button class="button" id="btn" onclick="functionPlayGame()">Play Game</button>
+
+            </h1>
+            <div class="corpoGenius">
+                <div class="genius">
+                    <div class="blue"></div>
+                    <div class="yellow"></div>
+                    <div class="red"></div>
+                    <div class="green"></div>
+                </div>
+            </div>
+
+            <div class="flex-container">
+                <div class="painel">
+                    <button class="button" id="btn" onclick="functionPlayGame()">Play Game</button>
+                </div>
+                <div>
+                    <button class="button" id="btnRepetir" onclick="">Repetir Rodada</button>
+                </div>
+                <div>
+                    <button class="button" id="score">Score: <span class="badge">0</span></button>
+                </div>
+
+            </div>
         </div>
+    </div>
+
+
+    <div>
         <audio id="myAudio">
             <source src="som.wav" type="audio/wav">
         </audio>
     </div>
+
+
+
     <script type="text/javascript" src="scripts.js"></script>
+
 </body>
 
 </html>
