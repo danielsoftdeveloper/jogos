@@ -4,10 +4,7 @@ let newArray = [];
 let TAM = 1;
 let score = 0;
 var continuar = new Boolean(false);
-var finalizar = new Boolean(false);
-let conta = 0;
 var x = document.getElementById("myAudio");
-let clicado = true;
 
 //0 - verde
 //1 - vermelho
@@ -33,7 +30,6 @@ blue.onclick = () => click(3);
 let click = (color) => {
 
     clickedOrder = [];
-    //console.log(color);
     clickedOrder[clickedOrder.length] = color;
     createColorElement(color).classList.add('selected');
 
@@ -47,7 +43,7 @@ let click = (color) => {
 
 //cria a ordem aleatória das cores
 let shuffleOrder = () => {
-  
+
     repeatDraw();
 
 }
@@ -116,7 +112,7 @@ let lightColor = (element, number) => {
 //checa se os botoes clicados são os mesmos da ordem gerada.
 let checkOrder = () => {
     let i = 0;
-    
+
     do {
         let pegaClique = clickedOrder[i];
         let ordem = order[i];
@@ -124,62 +120,60 @@ let checkOrder = () => {
         console.log("Do Click: " + pegaClique);
         console.log("Da Ordem: " + clickedOrder[i]);
 
-        if (order[i] != pegaClique) {           
+        if (ordem != pegaClique) {
             continuar = false;
             i = 100;
-            i++;
             return;
-        }
-
-        if (ordem === pegaClique) {
-            conta++;
-            document.querySelector('.badge').innerText = conta;
-            console.log("acertou!");
+        } 
+        else {
             functionScore();
+            document.querySelector('.badge').innerText = score;
             continuar = true;
             break;
         }
 
-       
-
-
     } while (i < order.length);
-
-    console.log("finalizou");
-    finalizar = true;
-
+    
     clickedOrder = [];
 
-
-    console.log("continuar" + continuar);
-    if (!continuar) {
-        alert(`Perdeu clicou na sequencia errada!`);
-        myStopFunction();
-        
+    if (score < 5) {
+        functionNextLevel();
+    }
+    else {
+        document.getElementById("btnLevel").style.display = "block"; document.getElementById("btnLevel").style.display = "block";
     }
 
+    if (continuar == false) {
+        myStopFunction();
+        alert(`Perdeu clicou na sequencia errada!`);        
+
+    }
 
     if (continuar) {
         TAM++;
-        functionNextLevel();
     }
-
 
 }
 
 // função para próximo nível do jogo
 function functionPlayGame() {
-
-    playGame();// 
-    escondeButton();
-    //continuar = true;
+    playGame();
+    escondeButton();   
 }
+
 let functionScore = () => {
     score++;
 }
 
 // função do iniciar do jogo
 let playGame = () => {
+    x.play();
+    shuffleOrder();
+}
+
+let RepetirRodadaGame = () => {
+    order = [];
+    newArray = [];
     x.play();
     shuffleOrder();
 }
@@ -194,25 +188,16 @@ function playAudio() {
 }
 
 function escondeButton() {
-
     document.getElementById("btn").style.display = "none";
 }
 
 const myTimeout = functionNextLevel = () => {
-
-    if (finalizar) {
-
-        setTimeout(() => {
-            if (click) {
-                playGame();
-                playAudio();
-            }
-        }, 10000);
-
-    } else {
-        console.log("Ainda não terminou!")
-
-    }
+    setTimeout(() => {
+        if (click) {
+            playGame();
+            playAudio();
+        }
+    }, 3500);
 
 }
 
