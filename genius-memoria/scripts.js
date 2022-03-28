@@ -64,8 +64,7 @@ let rodaCores = () => {
 
         elementColor = createColorElement(newArray[y]);
         lightColor(elementColor, Number(y));
-        console.log("vetor order inicial: " + newArray);
-
+       
     }
 
 }
@@ -116,9 +115,6 @@ let checkOrder = () => {
     do {
         let pegaClique = clickedOrder[i];
         let ordem = order[i];
-
-        console.log("Do Click: " + pegaClique);
-        console.log("Da Ordem: " + clickedOrder[i]);
 
         if (ordem != pegaClique) {
             continuar = false;
@@ -205,4 +201,3 @@ const myTimeout = functionNextLevel = () => {
 function myStopFunction() {
     clearTimeout(myTimeout);
 }
-
